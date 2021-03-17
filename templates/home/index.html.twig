@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+
+{% block header %}
+    {% include 'inc/header.html.twig' %}
+{% endblock %}
+{% block body %}
+    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            {% for slide in slides %}
+                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="{{ loop.index }}" class="{% if loop.index == 1 %} active {% endif %}" aria-label="Slide {{ loop.index }}" {% if loop.index == 1 %} aria-current="true" {% endif %}></button>
+            {% endfor %}
+        </div>
+        <div class="carousel-inner a">
+            {% for slide in slides %}
+                <div class="carousel-item {% if loop.index == 1 %} active {% endif %}">
+                    <svg class="bd-placeholder-img" width="100%" height="400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></svg>
+                    <div class="container">
+                        <div class="carousel-caption">
+                            <h1>{{ slide.text}} {{ loop.index }}</h1>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <div class="container p-5">
+        <div class="mb-4">
+            <div id="alert" class="form-error"></div>
+            <div id="alert" class="form-success">
+                {% for message in app.flashes('success') %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        </div>
+        <div>
+            <form method="post" action="/url/create" onsubmit="return createShortUrl()">
+                <div class="input-group mb-3">
+                    <input type="text" name="url" id="urlinput" class="form-control form-control-lg" placeholder="Put your url here" aria-label="Put your url here" aria-describedby="urlinputbtn">
+                    <input class="btn text-white" style="background-color: indigo" type="submit" id="urlinputbtn" value="Shorten">
+                </div>
+            </form>
+            {% for page in link %}
+                <div class="small"><a href="/pages/{{ page.id }}">{{ page.title }}</a> </div>
+            {% endfor %}
+
+        </div>
+
+
+    </div>
+
+{% endblock %}
+
+{% block footer %}
+    {% include 'inc/footer.html.twig' %}
+{% endblock %}

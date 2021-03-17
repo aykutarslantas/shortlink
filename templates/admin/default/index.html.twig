@@ -1,0 +1,125 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Hello DefaultController!{% endblock %}
+
+{% block body %}
+    <style>
+        .bg-purple{
+            background-color: purple;
+        }
+    </style>
+{#<style>#}
+{#    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }#}
+{#    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }#}
+{#</style>#}
+{#    {% if app.user %}#}
+{#        <div class="mb-3">#}
+{#            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>#}
+{#        </div>#}
+{#    {% endif %}#}
+{#<div class="example-wrapper">#}
+{#    <h1>Hello ! ✅</h1>#}
+
+
+{#</div>#}
+
+    <body class="bg-light">
+
+    <main class="container pt-4">
+        <div class="d-flex align-items-center p-3 my-3 mt-5 text-white bg-purple rounded shadow-sm">
+            <img class="me-3 rounded" src="holder.js/40x40?text=?&random=yes" alt="" width="48" height="38">
+            <div class="lh-1">
+                <h2 class="h6 mb-0 text-white lh-1">Welcome</h2>
+                <small>{{ app.user.username }}</small>
+            </div>
+        </div>
+
+        <div class="my-3 p-3 bg-body rounded shadow-sm">
+            <h6 class="border-bottom pb-2 mb-0">Latets Urls</h6>
+            <table class="table table-success table-striped table-sm table-hover">
+                <thead>
+                <tr>
+                    <td><b>Profile pic</b></td>
+                    <td style="text-align: center"><b>User</b></td>
+                    <td><b>Random text</b></td>
+                    <td><b>Target url</b></td>
+                </tr>
+                </thead>
+            {% for url in urls %}
+                <tr>
+                    <td style="padding-left: 15px">
+                        <img src="holder.js/32x32?text=😊&random=yes" class="bd-placeholder-img flex-shrink-0 me-2 rounded">
+                    </td>
+                    <td style="text-align: center">
+                        {% if url.userid == 0 %} Guest {% else %} {{ url.userid}} {% endif %}
+                    </td>
+                    <td>{{ url.urlHash }}</td>
+                    <td>{{ url.url }}</td>
+                </tr>
+            {% endfor %}
+            </table>
+            <small class="d-block text-end mt-3">
+                <a href="/admin/urls">All Urls</a>
+            </small>
+        </div>
+
+        <div class="my-3 p-3 bg-body rounded shadow-sm">
+
+            <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+                <div class="col">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-body">
+                            <h2 class="card-title">Pages</h2>
+                            <a href="/admin/pages" type="button" class="w-100 btn btn-lg btn-outline-primary">View All</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-body">
+                            <h2 class="card-title">Urls</h2>
+                            <a href="/admin/urls" type="button" class="w-100 btn btn-lg btn-outline-primary">View All</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-body">
+                            <h2 class="card-title">Slides</h2>
+                            <a href="/admin/slides" type="button" class="w-100 btn btn-lg btn-outline-primary">View All</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-body">
+                            <h2 class="card-title">Statistic</h2>
+                            <a href="/admin/stats" type="button" class="w-100 btn btn-lg btn-outline-primary">View All</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-body">
+                            <h2 class="card-title">Members</h2>
+                            <a href="/admin/members" type="button" class="w-100 btn btn-lg btn-outline-primary">View All</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-body">
+                            <h2 class="card-title">Setting</h2>
+                            <a href="/admin/setting" type="button" class="w-100 btn btn-lg btn-outline-primary">Go to setting</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    </body>
+{% endblock %}
