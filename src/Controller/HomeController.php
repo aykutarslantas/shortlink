@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Pages;
 use App\Entity\Slides;
 use App\Entity\Url;
+use App\Entity\User;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

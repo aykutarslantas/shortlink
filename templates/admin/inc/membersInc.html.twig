@@ -1,0 +1,101 @@
+<table class="table table-purple table-striped table-sm table-hover">
+    <thead>
+    <tr>
+        <td><b>Profile pic</b></td>
+        <td style="text-align: center"><b>Mail</b></td>
+        <td><b>Role</b></td>
+        <td><b>Date</b></td>
+        <td></td>
+    </tr>
+    </thead>
+    {% for member in Repository %}
+        <tr>
+            <td style="padding-left: 15px">
+                <img src="holder.js/32x32?text=😉&random=yes" class="bd-placeholder-img flex-shrink-0 me-2 rounded">
+            </td>
+            <td style="text-align: center">{{ member.email }}</td>
+            <td>{{ member.roles[0] }}</td>
+            <td>{{ member.createdat | date }}</td>
+            <td>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#update{{ member.id }}">
+                        Update
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="update{{ member.id }}" tabindex="-1" aria-labelledby="update{{ member.id }}Label" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="update{{ member.id }}Label">Modal title</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="updateform" method="post" action="/admin/members">
+                                        <label for="email">Email</label>
+                                        <input type="text" name="email" value="{{ member.email }}" class="form-control"/ >
+                                        <br>
+
+                                        <label for="role">Role</label>
+                                        <select name="role" class="form-control">
+                                            <option {% if member.roles[0] == 'ROLE_ADMIN' %} selected {% endif %} value="admin">ROLE_ADMIN</option>
+                                            <option {% if member.roles[0] == 'ROLE_USER' %} selected {% endif %} value="user">ROLE_USER</option>
+                                        </select>
+                                        <br>
+                                        <input name="update" value="{{ member.id }}" type="hidden">
+
+                                        <div class="form-check">
+                                            {% if member.isactive == 1 %}
+                                                <input class="form-check-input" checked type="checkbox" name="isactive"  id="isactive{{ member.id }}">
+                                            {% else %}
+                                                <input class="form-check-input" type="checkbox" name="isactive"  id="isactive{{ member.id }}">
+                                            {% endif %}
+
+                                            <label class="form-check-label" for="isactive{{ member.id }}">
+                                                Is Active
+                                            </label>
+                                        </div>
+
+                                    </form>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" form="updateform" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#delete{{ member.id }}">
+                        Delete
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="delete{{ member.id }}" tabindex="-1" aria-labelledby="delete{{ member.id }}Label" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="delete{{ member.id }}Label">Are you sure?</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-footer">
+                                    <form method="post">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <input type="hidden" name="deletemember" value="{{ member.id }}">
+                                        <button type="submit" class="btn btn-primary">Delete</button>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                <a href="#" class="btn text-white btn-sm btn-info">Link's</a>
+
+            </td>
+        </tr>
+    {% endfor %}
+</table>

@@ -1,0 +1,86 @@
+<div class="shadow-sm bg-body rounded">
+    <div class="accordion" id="accordionExample">
+        {% for slide in Repository%}
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading{{ slide.id }}">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ slide.id }}" aria-expanded="false" aria-controls="collapse{{ slide.id }}">
+                        #{{ slide.id | e }}
+                    </button>
+                </h2>
+                <div id="collapse{{ slide.id }}" class=" bg-light accordion-collapse collapse" aria-labelledby="heading{{ slide.id }}" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        {{ slide.text }}
+                    </div>
+                    <div class="p-3 d-flex justify-content-between align-items-center" >
+                        <div>
+                            <a class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editmodal{{ slide.id }}" href="#">Edit</a>
+                        </div>
+                        <div>
+                            <form method="post">
+                                <input name="delSlides" value="{{ slide.id }}" type="hidden">
+                                <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                            </form>
+                        </div>
+                        <div class="modal fade" id="editmodal{{ slide.id }}" tabindex="-1" aria-labelledby="editmodalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editmodal{{ slide.id }}Label">Edit Slides {{ slide.id }}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="editSlides{{ slide.id }}" method="post">
+                                            <input type="hidden" name="upSlides" value="{{ slide.id }}" />
+                                            <label for="text">Text</label>
+                                            <textarea class="form-control" name="text" id="text">{{ slide.text }}</textarea>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" form="editSlides{{ slide.id }}" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="accordion-item p-3">
+            <h2 class="accordion-header" id="headingThree">
+                <button type="button" class="mt-2 btn btn-primary" data-bs-toggle="modal" data-bs-target="#SlideAdd">
+                    Add New
+                </button>
+            </h2>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="SlideAdd" tabindex="-1" aria-labelledby="SlideAddLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="SlideAddLabel">Add Text Slides</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addSlidesForm" method="post" action="/admin/slides">
+
+                    <input type="hidden" value="1" name="addSlides">
+                    <div class="mb-3">
+                        <label for="text" class="form-label">Text</label>
+                        <textarea name="text" class="form-control" id="text"></textarea>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button form="addSlidesForm" type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

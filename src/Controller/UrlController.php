@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -28,7 +29,7 @@ class UrlController extends AbstractController
     /**
      * @Route("/url/create", name="url_create")
      */
-    public function create(Request $request, ValidatorInterface $validator): JsonResponse
+    public function create(Request $request, ValidatorInterface $validator, UserInterface $user): JsonResponse
     {
 
 
@@ -47,20 +48,28 @@ class UrlController extends AbstractController
             $accesor->setValue($errorMessages, $v->getPropertyPath(),$v->getMessage());
         }
 
-        $alphanumeric = '0123456789qwertyuıopilkjhgfdsazxcvbnm';
+        $alphanumeric = '0123456789qwertyuopilkjhgfdsazxcvbnm';
         $url_hash = substr(str_shuffle($alphanumeric),0,5);
 
         $en = $this->getDoctrine()->getManager();
 
+        if ($this->getUser()){
+            $userid = $user->getId();
+            $mail = $this->getUser()->getUsername();
+        }else{
+            $userid = 0;
+            $mail = null;
+        }
         $url_item = new Url();
         $url_item->setUrl($url)
             ->setUrlHash($url_hash)
-            ->setUserId(1)
+            ->setUserId($userid)
             ->setClickCount(0)
             ->setIsPublic(0)
             ->setExpiretAt( new \DateTime())
             ->setCreatedAt( new \DateTime())
-            ->setIsActive(true);
+            ->setIsActive(true)
+        ->setUserMail($mail);
 
         $en->persist($url_item);
         $en->flush();
@@ -79,6 +88,7 @@ class UrlController extends AbstractController
     public function redirector(Request $request, $urlHash): Response
     {
         $en = $this->getDoctrine()->getManager();
+
 
         $urlRepository = $en->getRepository(Url::class);
         $url_item = $urlRepository->findOneBy([
@@ -108,6 +118,7 @@ class UrlController extends AbstractController
         $clientIp = $request->getClientIp();
 
         $em = $this->getDoctrine()->getManager();
+
 
         $url_stats = new UrlStats();
         $url_stats

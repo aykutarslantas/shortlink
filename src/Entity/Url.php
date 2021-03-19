@@ -43,7 +43,7 @@ class Url
     private $is_active;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column (type="integer")
      */
     private $user_id;
 
@@ -61,6 +61,11 @@ class Url
      * @ORM\Column(type="datetime")
      */
     private $expiret_at;
+
+    /**
+     * @ORM\Column(type="string", length=80, nullable=true)
+     */
+    private $user_mail;
 
     public function getId(): ?int
     {
@@ -171,6 +176,18 @@ class Url
     public function setExpiretAt(\DateTimeInterface $expiret_at): self
     {
         $this->expiret_at = $expiret_at;
+
+        return $this;
+    }
+
+    public function getUserMail(): ?string
+    {
+        return $this->user_mail;
+    }
+
+    public function setUserMail(?string $user_mail): self
+    {
+        $this->user_mail = $user_mail;
 
         return $this;
     }

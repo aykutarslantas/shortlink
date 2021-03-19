@@ -10,9 +10,16 @@
 
     <title>{% block title %}Short URL{% endblock %}</title>
 
+    <style>
+        .b{
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 {% block header %}
+{% set route_name = app.request.get('slug') %}
+
     <header>
         <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" aria-label="Main navigation">
             <div class="container-fluid">
@@ -24,27 +31,27 @@
                 <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/admin">Dashboard</a>
+                            <a class="nav-link {% if route_name == "" %} active b{% endif %}" aria-current="page" href="/admin">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/pages">Pages</a>
+                            <a class="nav-link {% if route_name == "pages" %} active b{% endif %}" href="/admin/pages">Pages</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/urls">Urls</a>
+                            <a class="nav-link {% if route_name == "urls" %} active b{% endif %}" href="/admin/urls">Urls</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/slides">Slides</a>
+                            <a class="nav-link {% if route_name == "slides" %} active b{% endif %}" href="/admin/slides">Text Slides</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/stats">Statistics</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="/admin/members">Members</a>
+                            <a class="nav-link {% if route_name == "stats" %} active b{% endif %}" href="/admin/stats">Statistics</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/setting">Setting</a>
+                            <a class="nav-link {% if route_name == "members" %} active b{% endif %}" href="/admin/members">Members</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link {% if route_name == "setting" %} active b{% endif %}" href="/admin/setting">Setting</a>
                         </li>
                     </ul>
                     <div>
@@ -54,8 +61,19 @@
             </div>
         </nav>
     </header>
+
+    <div class="container pt-5">
+        <div class="d-flex align-items-center p-3 my-3 text-white bg-purple rounded shadow-sm">
+            <img class="me-3 rounded" src="holder.js/40x40?text=?&random=yes" alt="" width="48" height="38">
+            <div class="lh-1">
+                <h2 class="h6 mb-0 text-white lh-1">Welcome</h2>
+                <small>{{ app.user.username }}</small>
+            </div>
+        </div>
+    </div>
 {% endblock %}
-{% block body %}Merhaba Dünya{% endblock %}
+{% block body %}
+{% endblock %}
 {% block footer %}{% endblock %}
 <script src="{{ asset('assets/js/app.js') }}" type="application/javascript"></script>
 </body>

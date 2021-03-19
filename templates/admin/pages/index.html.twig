@@ -10,30 +10,30 @@
     </style>
 
 <body class="bg-light">
-<div class="p-5 m-5">
+<div class="container">
 
     {% if action == 'pages' %}
         {% include 'admin/inc/pagesInc.html.twig' %}
     {% endif %}
 
     {% if action == 'urls' %}
-        {% include 'admin/inc/pagesInc.html.twig' %}
+        {% include 'admin/inc/urlsInc.html.twig' %}
     {% endif %}
 
     {% if action == 'slides' %}
-        {% include 'admin/inc/pagesInc.html.twig' %}
+        {% include 'admin/inc/slidesInc.html.twig' %}
     {% endif %}
 
     {% if action == 'members' %}
-        {% include 'admin/inc/pagesInc.html.twig' %}
+        {% include 'admin/inc/membersInc.html.twig' %}
     {% endif %}
 
     {% if action == 'setting' %}
-        {% include 'admin/inc/pagesInc.html.twig' %}
+        {% include 'admin/inc/settingInc.html.twig' %}
     {% endif %}
 
     {% if action == 'stats' %}
-        {% include 'admin/inc/pagesInc.html.twig' %}
+        {% include 'admin/inc/statsInc.html.twig' %}
     {% endif %}
 </div>
 

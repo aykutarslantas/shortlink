@@ -1,0 +1,91 @@
+<table class="table table-warning table-striped table-sm table-hover">
+    <thead>
+    <tr>
+        <td><b>EGBOK</b></td>
+        <td style="text-align: center"><b>User</b></td>
+        <td><b>Random text</b></td>
+        <td><b>Target url</b></td>
+        <td><b>Date</b></td>
+        <td><b>-</b></td>
+    </tr>
+    </thead>
+    {% for url in Repository %}
+        <tr>
+            <td style="padding-left: 15px">
+                <img src="holder.js/32x32?text=🥳&random=yes" class="bd-placeholder-img flex-shrink-0 me-2 rounded">
+            </td>
+            <td style="text-align: center">
+                {% if url.userid == 0 %} Guest {% else %} {{ url.usermail}} {% endif %}
+            </td>
+            <td>{{ url.urlHash }}</td>
+            <td>{{ url.url }}</td>
+            <td>{{ url.expiretAt | date }}</td>
+            <td>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editUrl{{ url.id }}">
+                    Edit
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="editUrl{{ url.id }}" tabindex="-1" aria-labelledby="editUrl{{ url.id }}Label" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editUrl{{ url.id }}Label">Edit URL</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- User id den user i çekelim -->
+                                <!-- Askıya alma -->
+                                <!-- silme -->
+                                <!-- yönlendirilen adresi değiştirebilme -->
+                                <div class="alert alert-success">
+                                    <div>{{ url.expiretAt | date}}</div>
+                                    <div><b>{{ url.usermail }}</b></div>
+                                </div>
+
+                                <br>
+                                <form id="updateUrls{{ url.id }}" method="post" action="/admin/urls">
+                                    <input type="hidden" name="Urlid" value="{{ url.id }}">
+                                    <label for="randomtext">Random Text</label>
+                                    <input class="form-control" type="text" name="ramdomtext" id="randomtext" maxlength="6" value="{{ url.urlhash }}">
+                                    <br>
+                                    <label for="targeturl">Target url</label>
+                                    <input class="form-control" type="text" name="targeturl" id="targeturl" value="{{ url.url }}">
+                                    <br>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" form="updateUrls{{ url.id }}" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteUrl{{ url.id }}">
+                    Delete
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="deleteUrl{{ url.id }}" tabindex="-1" aria-labelledby="deleteUrl{{ url.id }}Label" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteUrl{{ url.id }}Label">Modal title</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+    {% endfor %}
+</table>

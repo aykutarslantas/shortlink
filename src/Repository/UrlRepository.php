@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Url;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -18,6 +20,24 @@ class UrlRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Url::class);
     }
+
+
+    public function findByIdJoinUrls(int $userid): ?Url
+    {
+        $qb = $this->createQueryBuilder('link');
+        $qb->innerJoin('App\Entity\User','u',Join::WITH, 'u.id = link.user_id');
+        dump($qb->getQuery()->getResult());
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
+
+//    public function findByIdJoinUrls(int $userid): ?Url
+//    {
+//        $qb = $this->createQueryBuilder('link');
+//        $qb->innerJoin('App\Entity\User','u',Join::WITH, 'u = link.user_id');
+//        dump($qb->getQuery()->getResult());
+//        return $qb->getQuery()->getOneOrNullResult();
+//    }
 
     // /**
     //  * @return Url[] Returns an array of Url objects

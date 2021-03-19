@@ -10,6 +10,7 @@
 
         <title>{% block title %}Short URL{% endblock %}</title>
 
+
     </head>
     <body>
     {% block header %}
@@ -20,5 +21,7 @@
     {% block body %}Merhaba Dünya{% endblock %}
     {% block footer %}{% endblock %}
     <script src="{{ asset('assets/js/app.js') }}" type="application/javascript"></script>
+    <script src="{{ asset('assets/js/textslides.js') }}" type="application/javascript"></script>
+    <link href="{{ asset('assets/css/textslides.css') }}" type="text/css" rel="stylesheet" />
     </body>
 </html>
