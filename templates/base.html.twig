@@ -1,27 +1,26 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <!-- Bootstrap core CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.9.7/holder.min.js" integrity="sha512-O6R6IBONpEcZVYJAmSC+20vdsM07uFuGjFf0n/Zthm8sOFW+lAq/OK1WOL8vk93GBDxtMIy6ocbj6lduyeLuqQ==" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.9.7/holder.min.js" integrity="sha512-O6R6IBONpEcZVYJAmSC+20vdsM07uFuGjFf0n/Zthm8sOFW+lAq/OK1WOL8vk93GBDxtMIy6ocbj6lduyeLuqQ==" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
-        <title>{% block title %}Short URL{% endblock %}</title>
+    <title>{% block title %}Short URL{% endblock %}</title>
 
 
-    </head>
-    <body>
-    {% block header %}
-        <header>
-
-        </header>
-    {% endblock %}
-    {% block body %}Merhaba Dünya{% endblock %}
-    {% block footer %}{% endblock %}
-    <script src="{{ asset('assets/js/app.js') }}" type="application/javascript"></script>
-    <script src="{{ asset('assets/js/textslides.js') }}" type="application/javascript"></script>
-    <link href="{{ asset('assets/css/textslides.css') }}" type="text/css" rel="stylesheet" />
-    </body>
+</head>
+<body onload="getscreenresolution()">
+{% block header %}
+    <header>
+    </header>
+{% endblock %}
+{% block body %}Merhaba Dünya{% endblock %}
+{% block footer %}{% endblock %}
+<script src="{{ asset('assets/js/app.js') }}" type="application/javascript"></script>
+<script src="{{ asset('assets/js/textslides.js') }}" type="application/javascript"></script>
+<link href="{{ asset('assets/css/textslides.css') }}" type="text/css" rel="stylesheet" />
+</body>
 </html>

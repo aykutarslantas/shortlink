@@ -174,6 +174,8 @@ class DefaultController extends AbstractController
             case 'stats':
                 $statsRepository = $this->getDoctrine()->getRepository(UrlStats::class);
                 $Repository = $statsRepository->findAll();
+                $stats = new UrlStats();
+
                 return $this->render('admin/pages/index.html.twig', [
                     'action' => $slug,
                     'Repository' => $Repository

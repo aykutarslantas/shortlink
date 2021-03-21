@@ -17,7 +17,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
         $pageRepository = $this->getDoctrine()->getRepository(Pages::class);
         $pages = $pageRepository->findAll();
@@ -30,8 +30,7 @@ class HomeController extends AbstractController
             'link'=> $pages,
             'slides'=>$slides,
         ]);
+
     }
-
-
 
 }

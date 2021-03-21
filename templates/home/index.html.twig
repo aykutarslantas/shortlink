@@ -8,6 +8,13 @@
 {% endblock %}
 {% block body %}
 
+    <script async>
+        window.onload = function ()
+        {
+            document.getElementById("resolution").value = screen.height + 'x' + screen.width;
+        }
+    </script>
+
     <div id="myCarousel" style="margin-top: -15px" class="bg-success" data-bs-ride="carousel">
         <div id="carousel">
             <div class="btn-bar">
@@ -46,6 +53,7 @@
         <div>
             <form method="post" action="/url/create" onsubmit="return createShortUrl()">
                 <div class="input-group mb-3">
+                    <input type="hidden" name="resolution" id="resolution" />
                     <input type="text" name="url" id="urlinput" class="form-control form-control-lg" placeholder="Put your url here" aria-label="Put your url here" aria-describedby="urlinputbtn">
                     <input class="btn text-white" style="background-color: indigo" type="submit" id="urlinputbtn" value="Shorten">
                 </div>

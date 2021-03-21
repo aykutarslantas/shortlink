@@ -14,6 +14,7 @@ use Symfony\Component\Routing\RouterInterface;
 
 class SecurityController extends AbstractController
 {
+
     /**
      * @Route("/login", name="app_login")
      */
@@ -47,10 +48,6 @@ class SecurityController extends AbstractController
 
     }
 
-    public function UserInt(UserInterface $user){
-
-    }
-
     /**
      * @Route("/logout", name="app_logout")
      */
@@ -70,6 +67,7 @@ class SecurityController extends AbstractController
             $password = $request->request->get('password');
             $passwordagain = $request->request->get('passwordagain');
             $role = ["ROLE_USER"];
+            $isactive = true;
 
             if ($password != $passwordagain){
                 $error[] = 'Password again is not same password';
@@ -86,7 +84,9 @@ class SecurityController extends AbstractController
 
             $user->setEmail($email)
                 ->setPassword($encoded)
-                ->setRoles($role);
+                ->setRoles($role)
+                ->setIsActive($isactive)
+                ->setCreatedAt(new \DateTime());
 
             $em = $this->getDoctrine()->getManager();
 
